@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="./vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <link rel="manifest" href="./manifest.json" />
+  <title>Time Tracker - Zaman Takibi</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <div class="app-container">
+
+    <!-- Top Header -->
+    <header class="header">
+      <div class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10" />
+            <polyline points="12 6 12 12 16 14" />
+          </svg>
+        </div>
+        <h1>TIME<span>TRACKER</span></h1>
+      </div>
+    </header>
+
+    <!-- Stats Area -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <span class="stat-label">Bugünkü Toplam</span>
+        <h2 class="stat-value" id="val-total-today">0h 0m</h2>
+        <span class="stat-subtitle text-cyan">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
+            <path d="M23 6l-9.5 9.5-5-5L1 18" />
+          </svg>
+          TAKİP EDİLİYOR
+        </span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Odak Skoru</span>
+        <h2 class="stat-value">92%</h2>
+        <span class="stat-subtitle text-cyan">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+          </svg>
+          ZİRVE DURUM
+        </span>
+      </div>
+    </div>
+
+    <!-- Categories / Groups -->
+    <div class="section-header">
+      <h3>AKTİF OTURUMLAR</h3>
+      <span class="live-count" id="live-count">0 Aktif Görev</span>
+    </div>
+
+    <div class="groups-filter" id="groups-filter">
+      <!-- JS renders tabs here -->
+    </div>
+
+    <!-- Tracker List -->
+    <div class="trackers-list" id="trackers-list">
+      <!-- JS renders trackers here -->
+    </div>
+
+    <!-- Initiate Box -->
+    <div class="initiate-box" id="btn-initiate">
+      <div class="initiate-plus-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="12" y1="5" x2="12" y2="19" />
+          <line x1="5" y1="12" x2="19" y2="12" />
+        </svg>
+      </div>
+      <span>YENİ GÖREV BAŞLAT</span>
+    </div>
+
+  </div>
+
+  <!-- Modal Form for Task -->
+  <div class="modal-overlay" id="modal-task">
+    <div class="modal-content">
+      <h3 id="modal-title">Yeni Görev Başlat</h3>
+      <div class="form-group">
+        <label>Görev Adı</label>
+        <input type="text" id="input-task-name" placeholder="Örn: Ui/UX Redesign" autocomplete="off" />
+      </div>
+
+      <div class="form-group">
+        <label>Grup / Kategori</label>
+        <div class="input-with-btn">
+          <select id="select-task-group">
+            <option value="Genel">Genel</option>
+            <option value="Hafta İçi">Hafta İçi</option>
+            <option value="Hafta Sonu">Hafta Sonu</option>
+          </select>
+          <button type="button" id="btn-new-group-prompt" title="Yeni Grup Ekle">+</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Bildirim Aralığı (Dakika)</label>
+        <input type="number" id="input-task-interval" placeholder="Örn: 25" min="0" value="0" />
+        <small class="form-hint">Sıfır (0) yaparsanız bildirim gönderilmez.</small>
+      </div>
+
+      <div class="form-group" style="display:none;" id="group-color-picker">
+        <label>Görev Rengi (Neon)</label>
+        <div class="color-options">
+          <button type="button" class="color-btn active" data-color="cyan" style="--c: var(--neon-cyan)"></button>
+          <button type="button" class="color-btn" data-color="purple" style="--c: var(--neon-purple)"></button>
+          <button type="button" class="color-btn" data-color="blue" style="--c: var(--neon-blue)"></button>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-cancel" id="btn-cancel-task">İptal</button>
+        <button class="btn-save" id="btn-save-task">Başlat</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./main.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').then((reg) => {
+          console.log('SW registered!', reg);
+        });
+      });
+    }
+  </script>
+</body>
+
+</html>
